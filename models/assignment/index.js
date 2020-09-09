@@ -7,6 +7,7 @@ CREDS.connect();
 // establish schema for assignments
 const assignmentSchema = new mongoose.Schema({
   class_id: String,
+  class_name: String,
   name: String,
   description: String,
   due: Date,
