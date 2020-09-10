@@ -33,12 +33,26 @@ app.post("/api/assignments/create", async (req, res) => {
   res.send(doc);
 });
 
+// PATCH assignment
+app.patch("/api/assignments/update", async (req, res) => {
+  const target = assignment.Assignment.findOne({ _id: req.body._id });
+  await target.updateOne(req.body);
+  res.send(req.body);
+});
+
 // GET classes
 app.get("/api/classes", async (req, res) => {
   const classes = req.query
     ? await _class.Class.find(req.query)
     : await _class.Class.find();
   res.send(classes);
+});
+
+// POST class
+app.post("/api/classes/create", async (req, res) => {
+  const newClass = new _class.Class(req.body);
+  const doc = await newClass.save();
+  res.send(doc);
 });
 
 // establish port (default to 5000) and listen
