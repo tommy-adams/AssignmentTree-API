@@ -40,6 +40,12 @@ app.patch("/api/assignments/update", async (req, res) => {
   res.send(req.body);
 });
 
+// DELETE assignment
+app.delete("/api/assignments/delete", async (req, res) => {
+  await assignment.Assignment.deleteOne({ _id: req.query._id });
+  res.send(req.query)
+});
+
 // GET classes
 app.get("/api/classes", async (req, res) => {
   const classes = req.query
@@ -53,6 +59,19 @@ app.post("/api/classes/create", async (req, res) => {
   const newClass = new _class.Class(req.body);
   const doc = await newClass.save();
   res.send(doc);
+});
+
+// PATCH class
+app.patch("/api/classes/update", async (req, res) => {
+  const target = _class.Class.findOne({ _id: req.body._id });
+  await target.updateOne(req.body);
+  res.send(req.body);
+});
+
+// DELETE class
+app.delete("/api/classes/delete", async (req, res) => {
+  await _class.Class.deleteOne({ _id: req.query._id });
+  res.send(req.query)
 });
 
 // establish port (default to 5000) and listen
